@@ -12,12 +12,10 @@ const Cadastro = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Função para limpar CPF (remove pontos e traço)
   const limparCpf = (cpfFormatado) => {
     return cpfFormatado.replace(/\D/g, '');
   };
 
-  // Função para formatar CPF na digitação
   const formatarCpf = (value) => {
     const numbers = value.replace(/\D/g, '');
     if (numbers.length <= 11) {
@@ -35,7 +33,6 @@ const Cadastro = () => {
     event.preventDefault();
     setLoading(true);
 
-    // Validações
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem!");
       setLoading(false);

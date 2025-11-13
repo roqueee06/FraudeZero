@@ -3,6 +3,7 @@ package com.bradesco.auth_system.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "usuarios")
@@ -24,6 +25,12 @@ public class Usuario {
     
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
+
+    @Column(name = "saldo_disponivel", precision = 10, scale = 2)
+    private BigDecimal saldoDisponivel = new BigDecimal("50000.00");
+
+    @Column(name = "role", nullable = false)
+    private String role = "USER";
     
     @PrePersist
     protected void onCreate() {

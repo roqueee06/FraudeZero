@@ -1,0 +1,492 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+  color: #000000 !important; 
+}
+
+.admin-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.admin-header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white !important; 
+}
+
+.admin-user-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: white !important;
+}
+
+.btn-logout {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-logout:hover {
+  background: #c0392b;
+}
+
+.admin-nav {
+  background: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 0.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-btn {
+  background: white;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #000000 !important;
+}
+
+.nav-btn:hover {
+  border-color: #3498db;
+  background: #f8f9fa;
+}
+
+.nav-btn.active {
+  background: #3498db;
+  color: white !important;
+  border-color: #3498db;
+}
+
+.admin-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #000000 !important;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border-left: 4px solid #3498db;
+  color: #000000 !important;
+}
+
+.admin-card.suspeitas-card {
+  border-left-color: #e74c3c;
+}
+
+.admin-card.valor-card {
+  border-left-color: #f39c12;
+}
+
+.admin-card.grafico-card {
+  grid-column: span 2;
+  border-left-color: #9b59b6;
+}
+
+.admin-card h3 {
+  margin: 0 0 1rem 0;
+  color: #000000 !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.admin-card-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000000 !important;
+  margin-bottom: 0.5rem;
+}
+
+.suspeitas-card .admin-card-value {
+  color: #e74c3c !important;
+}
+
+.valor-card .admin-card-value {
+  color: #f39c12 !important;
+}
+
+.admin-card p {
+  margin: 0;
+  color: #000000 !important;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.grafico-tipos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.tipo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #9b59b6;
+  color: #000000 !important;
+}
+
+.tipo-nome {
+  color: #000000 !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.tipo-quantidade {
+  background: #9b59b6;
+  color: white !important;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.legenda-grafico {
+  font-size: 0.8rem !important;
+  color: #000000 !important;
+  font-style: italic;
+}
+
+.relatorio-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  color: #000000 !important;
+}
+
+.relatorio-section h2 {
+  color: #000000 !important;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.filtros-relatorio {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtro-btn {
+  background: #ecf0f1;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #000000 !important;
+}
+
+.filtro-btn.active,
+.filtro-btn:hover {
+  background: #3498db;
+  color: white !important;
+}
+
+.tabela-fraudes {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  color: #000000 !important;
+}
+
+.tabela-fraudes table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #000000 !important;
+}
+
+.tabela-fraudes th {
+  background: #34495e;
+  color: white !important;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.tabela-fraudes td {
+  padding: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  vertical-align: middle;
+  color: #000000 !important;
+}
+
+.id-coluna {
+  font-weight: bold;
+  color: #000000 !important;
+}
+
+.usuario-coluna {
+  font-weight: 500;
+  color: #000000 !important;
+}
+
+.cpf-coluna {
+  font-family: 'Courier New', monospace;
+  color: #000000 !important;
+}
+
+.tipo-coluna, .status-coluna {
+  text-align: center;
+  color: #000000 !important;
+}
+
+.valor-coluna {
+  font-weight: 600;
+  color: #000000 !important;
+}
+
+.data-coluna {
+  color: #000000 !important;
+  white-space: nowrap;
+}
+
+.acoes-coluna {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  color: #000000 !important;
+}
+
+.badge-online {
+  background: #fff3cd;
+  color: #000000 !important;
+}
+
+.badge-presencial {
+  background: #d1ecf1;
+  color: #000000 !important;
+}
+
+.badge-pendente {
+  background: #ffeaa7;
+  color: #000000 !important;
+}
+
+.badge-contestada {
+  background: #f8d7da;
+  color: #000000 !important;
+}
+
+.btn-acao {
+  background: #3498db;
+  color: white !important;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-acao:hover {
+  background: #2980b9;
+}
+
+.btn-detalhes {
+  background: #95a5a6;
+}
+
+.btn-exportar {
+  background: #27ae60;
+}
+
+.sem-dados {
+  text-align: center;
+  padding: 3rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #000000 !important;
+}
+
+.sem-dados p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #000000 !important;
+}
+
+.sem-dados .subtitulo {
+  color: #000000 !important;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .admin-header-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .admin-nav {
+    flex-direction: column;
+  }
+  
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-card.grafico-card {
+    grid-column: span 1;
+  }
+  
+  .tabela-fraudes {
+    font-size: 0.8rem;
+  }
+  
+  .acoes-coluna {
+    flex-direction: column;
+  }
+}
+
+
+.admin-dashboard * {
+  color: #000000 !important;
+}
+
+.admin-dashboard .admin-header * {
+  color: white !important;
+}
+
+.admin-dashboard .nav-btn.active {
+  color: white !important;
+}
+
+.admin-dashboard .tipo-quantidade {
+  color: white !important;
+}
+
+.admin-dashboard .btn-acao {
+  color: white !important;
+}
+
+.admin-dashboard .filtro-btn.active {
+  color: white !important;
+}
+
+
+.fraudes-card {
+  border-left: 4px solid #dc3545;
+}
+
+.fraudes-card .admin-card-value {
+  color: #dc3545 !important;
+}
+
+.taxa-card {
+  border-left: 4px solid #ff6b6b;
+}
+
+.taxa-card .admin-card-value {
+  color: #ff6b6b !important;
+}
+
+.tipo-quantidade.pendente {
+  background: #ffc107;
+  color: white !important;
+}
+
+.tipo-quantidade.fraude {
+  background: #dc3545;
+  color: white !important;
+}
+
+.tipo-quantidade.normal {
+  background: #28a745;
+  color: white !important;
+}
+
+.linha-fraude {
+  background: #fff5f5 !important;
+}
+
+.linha-suspeita {
+  background: #fffbf0 !important;
+}
+
+.badge-fraude {
+  background: #dc3545;
+  color: white !important;
+}
+
+.badge-pendente {
+  background: #ffc107;
+  color: black !important;
+}
+
+.resumo-fraudes {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.resumo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resumo-label {
+  font-size: 0.9rem;
+  color: #6c757d !important;
+  margin-bottom: 0.5rem;
+}
+
+.resumo-valor {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000000 !important;
+}
+
+.tipo-status-coluna {
+  font-weight: bold;
+  text-align: center;
+}

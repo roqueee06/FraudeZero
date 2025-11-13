@@ -10,12 +10,10 @@ const Login = () => {
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Função para limpar CPF (remove pontos e traço)
   const limparCpf = (cpfFormatado) => {
     return cpfFormatado.replace(/\D/g, '');
   };
 
-  // Função para formatar CPF na digitação
   const formatarCpf = (value) => {
     const numbers = value.replace(/\D/g, '');
     if (numbers.length <= 11) {
@@ -33,7 +31,6 @@ const Login = () => {
     event.preventDefault();
     setLoading(true);
 
-    // LIMPA O CPF ANTES DE ENVIAR
     const cpfLimpo = limparCpf(cpf);
     
     console.log("Dados de Login:", { cpf: cpfLimpo, senha });
@@ -45,17 +42,35 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          cpf: cpfLimpo,  // ENVIA CPF LIMPO
+          cpf: cpfLimpo,
           senha: senha
         }),
       });
 
       if (response.ok) {
-        const usuario = await response.json();
-        console.log("Login bem-sucedido:", usuario);
+        const data = await response.json();
+        console.log("Login bem-sucedido:", data);
         
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        navigate("/dashboard");
+        let usuarioParaSalvar;
+        
+        if (data.usuario) {
+          usuarioParaSalvar = {
+            ...data.usuario,
+            role: data.role
+          };
+        } else {
+          usuarioParaSalvar = data;
+        }
+        
+        console.log("Usuário para salvar:", usuarioParaSalvar);
+        
+        localStorage.setItem("usuario", JSON.stringify(usuarioParaSalvar));
+        
+        if (usuarioParaSalvar.role === 'ADMIN') {
+          navigate("/admin");
+        } else {
+          navigate("/dashboard");
+        }
       } else {
         const erro = await response.text();
         alert(`Erro no login: ${erro}`);

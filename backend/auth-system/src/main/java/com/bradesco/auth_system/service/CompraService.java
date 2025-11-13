@@ -23,34 +23,36 @@ public class CompraService {
     @Autowired
     private DetectorFraudeService detectorFraudeService;
 
-    // MÉTODO CORRIGIDO - deve se chamar "salvar"
+    @Autowired
+    private ExtratoService extratoService;
+
     @Transactional
     public Compra salvar(Compra compra) {
-        // Salva a compra primeiro para gerar o ID
         Compra compraSalva = compraRepository.save(compra);
         
-        // Detecta fraudes
         List<Suspeita> suspeitas = detectorFraudeService.detectarFraudes(compraSalva);
         
-        // Salva as suspeitas se houver
         if (!suspeitas.isEmpty()) {
             suspeitaRepository.saveAll(suspeitas);
+        }
+
+        if (suspeitas.isEmpty()) {
+            extratoService.registrarCompraNormal(compraSalva);
+        } else {
+            extratoService.registrarCompraSuspeita(compraSalva);
         }
         
         return compraSalva;
     }
 
-    // MÉTODO PARA BUSCAR COMPRAS POR USUÁRIO
     public List<Compra> buscarComprasPorUsuario(Long idUsuario) {
         return compraRepository.findByIdUsuario(idUsuario);
     }
 
-    // MÉTODO PARA BUSCAR TODAS AS COMPRAS
     public List<Compra> buscarTodasCompras() {
         return compraRepository.findAll();
     }
 
-    // MÉTODO PARA BUSCAR COMPRA POR ID
     public Optional<Compra> buscarPorId(Long id) {
         return compraRepository.findById(id);
     }

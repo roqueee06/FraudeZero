@@ -29,15 +29,30 @@ function NovaCompra() {
     setLoading(true);
 
     try {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const usuarioStorage = JSON.parse(localStorage.getItem("usuario"));
+      console.log("Usuário do localStorage:", usuarioStorage);
       
-      // DADOS CORRETOS PARA O BACKEND - COM OS MESMOS NOMES DA ENTIDADE
+      let usuarioId;
+      
+      if (usuarioStorage.usuario) {
+        usuarioId = usuarioStorage.usuario.id;
+      } else {
+        usuarioId = usuarioStorage.id;
+      }
+      
+      console.log("ID do usuário extraído:", usuarioId);
+      
+      if (!usuarioId) {
+        alert("Erro: ID do usuário não encontrado. Faça login novamente.");
+        return;
+      }
+
       const compraComUsuario = {
         distanciaDaCasa: compra.distanciaDaCasa ? Number(compra.distanciaDaCasa) : null,
         distanciaDaUltimaTransacao: compra.distanciaDaUltimaTransacao ? Number(compra.distanciaDaUltimaTransacao) : null,
         precoCompra: Number(compra.precoCompra),
         idLoja: Number(compra.idLoja),
-        idUsuario: usuario.id,
+        idUsuario: usuarioId,
         usouChip: compra.usouChip,
         usouSenha: compra.usouSenha,
         pedidoOnline: compra.pedidoOnline

@@ -16,7 +16,6 @@ public class CompraController {
     @Autowired
     private CompraService compraService;
 
-    // MÉTODO CORRIGIDO - usa "salvar" em vez de "salvarCompra"
     @PostMapping
     public ResponseEntity<?> criarCompra(@RequestBody Compra compra) {
         try {
@@ -29,14 +28,12 @@ public class CompraController {
         }
     }
 
-    // MÉTODO CORRIGIDO - busca compras por usuário
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<Compra>> getComprasPorUsuario(@PathVariable Long idUsuario) {
         List<Compra> compras = compraService.buscarComprasPorUsuario(idUsuario);
         return ResponseEntity.ok(compras);
     }
 
-    // Método para todas as compras
     @GetMapping
     public ResponseEntity<List<Compra>> getAllCompras() {
         List<Compra> compras = compraService.buscarTodasCompras();

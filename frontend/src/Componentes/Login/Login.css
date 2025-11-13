@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url('C:\Users\Guilh\Documents\FraudeZero\frontend\src\assets\image.png') no-repeat center center fixed;
+  background: url('C:\Users\Guilh\FraudeZero\frontend\src\assets\image.png') no-repeat center center fixed;
   background-size: cover;
   padding: 20px;
 }
@@ -41,11 +41,11 @@
   transition: all 0.3s ease;
   background: #f9f9f9;
   box-sizing: border-box;
-  color: #000000; /* TEXTO PRETO */
+  color: #000000;
 }
 
 .login-page .input-field input::placeholder {
-  color: #666; /* Placeholder cinza */
+  color: #666;
 }
 
 .login-page .input-field input:focus {
@@ -53,7 +53,7 @@
   background: white;
   outline: none;
   box-shadow: 0 0 8px rgba(204, 0, 0, 0.2);
-  color: #000000; /* TEXTO PRETO */
+  color: #000000;
 }
 
 .login-page .input-field .icon {
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #000000; /* TEXTO PRETO */
+  color: #000000;
 }
 
 .login-page .recall-forget a {
@@ -120,7 +120,7 @@
 }
 
 .login-page .signup-link p {
-  color: #000000; /* TEXTO PRETO */
+  color: #000000;
 }
 
 .login-page .signup-link a {

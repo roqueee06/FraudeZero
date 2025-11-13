@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
     
@@ -33,5 +35,9 @@ public class AuthService {
         
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
+    }
+
+    public boolean existeUsuarioPorCpf(String cpf) {
+        return usuarioRepository.findByCpf(cpf).isPresent();
     }
 }

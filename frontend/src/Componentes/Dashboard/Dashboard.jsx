@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
-// Import dos ícones
 import pixIcon from "../../assets/pix.png";
 import transIcon from "../../assets/trans.png";
 import extratoIcon from "../../assets/extrato.png";
@@ -10,17 +9,55 @@ import extratoIcon from "../../assets/extrato.png";
 function Dashboard() {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
+  const [saldoDisponivel, setSaldoDisponivel] = useState(0);
   const [transacoesSuspeitas, setTransacoesSuspeitas] = useState([]);
 
   useEffect(() => {
     const usuarioSalvo = localStorage.getItem("usuario");
     if (usuarioSalvo) {
       const user = JSON.parse(usuarioSalvo);
-      setUsuario(user);
-      // Buscar transações suspeitas do usuário
-      buscarTransacoesSuspeitas(user.id);
+      console.log("Usuário no Dashboard:", user);
+      
+      let usuarioId;
+      let usuarioNome;
+      
+      if (user.usuario) {
+        usuarioId = user.usuario.id;
+        usuarioNome = user.usuario.nome;
+      } else {
+        usuarioId = user.id;
+        usuarioNome = user.nome;
+      }
+      
+      console.log("ID:", usuarioId, "Nome:", usuarioNome);
+      
+      if (user.role === 'ADMIN') {
+        navigate("/admin");
+        return;
+      }
+      
+      setUsuario({ ...user, id: usuarioId, nome: usuarioNome });
+      buscarSaldoDisponivel(usuarioId);
+      buscarTransacoesSuspeitas(usuarioId);
+    } else {
+      navigate("/login");
     }
-  }, []);
+  }, [navigate]);
+
+  const buscarSaldoDisponivel = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/usuarios/${userId}/saldo`);
+      if (response.ok) {
+        const saldo = await response.json();
+        setSaldoDisponivel(saldo);
+      } else {
+        setSaldoDisponivel(50000.00);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar saldo:", error);
+      setSaldoDisponivel(50000.00);
+    }
+  };
 
   const buscarTransacoesSuspeitas = async (userId) => {
     try {
@@ -34,39 +71,55 @@ function Dashboard() {
     }
   };
 
-  const handleAprovar = async (idCompra) => {
+  const aprovarCompra = async (idCompra) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/suspeitas/aprovar/${idCompra}`, {
-        method: "POST"
+      const response = await fetch(`http://localhost:8080/api/extrato/aprovar/${idCompra}`, {
+        method: 'POST'
       });
+      
       if (response.ok) {
-        // Remove a transação da lista
-        setTransacoesSuspeitas(prev => prev.filter(t => t.id_compra !== idCompra));
-        alert("Transação aprovada com sucesso!");
+        alert('Compra aprovada! Saldo atualizado.');
+        buscarTransacoesSuspeitas(usuario.id);
+        buscarSaldoDisponivel(usuario.id);
+      } else {
+        const erro = await response.text();
+        alert(`Erro: ${erro}`);
       }
     } catch (error) {
-      console.error("Erro ao aprovar transação:", error);
+      console.error('Erro ao aprovar compra:', error);
+      alert('Erro ao aprovar compra');
     }
   };
 
-  const handleContestar = async (idCompra) => {
+  const contestarCompra = async (idCompra) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/suspeitas/contestar/${idCompra}`, {
-        method: "POST"
+      const response = await fetch(`http://localhost:8080/api/extrato/contestar/${idCompra}`, {
+        method: 'POST'
       });
+      
       if (response.ok) {
-        // Remove a transação da lista
-        setTransacoesSuspeitas(prev => prev.filter(t => t.id_compra !== idCompra));
-        alert("Transação contestada! Nossa equipe irá analisar.");
+        alert('Compra contestada! Transação removida.');
+        buscarTransacoesSuspeitas(usuario.id);
+      } else {
+        const erro = await response.text();
+        alert(`Erro: ${erro}`);
       }
     } catch (error) {
-      console.error("Erro ao contestar transação:", error);
+      console.error('Erro ao contestar compra:', error);
+      alert('Erro ao contestar compra');
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("usuario");
     navigate("/login");
+  };
+
+  const formatarValor = (valor) => {
+    return valor.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
 
   return (
@@ -86,9 +139,10 @@ function Dashboard() {
       <main className="main">
         {/* Cards */}
         <div className="cards">
-          <div className="card">
+          {/* ✅ SALDO REAL - NÃO MAIS VALOR FIXO */}
+          <div className="card saldo-card">
             <h3>Saldo Disponível</h3>
-            <p className="valor">R$ 2.450,00</p>
+            <p className="valor">R$ {formatarValor(saldoDisponivel)}</p>
             <span>Conta Corrente</span>
           </div>
 
@@ -104,28 +158,29 @@ function Dashboard() {
           <h2>⚠️ Transações Suspeitas</h2>
           {transacoesSuspeitas.length === 0 ? (
             <div className="sem-suspeitas">
-              <p>Nenhuma transação suspeita no momento</p>
+              <p>Nenhuma transação suspeita no momento 🎉</p>
+              <p className="subtitulo">Todas as suas transações estão seguras</p>
             </div>
           ) : (
             <div className="transacoes-lista">
               {transacoesSuspeitas.map((transacao) => (
-                <div key={transacao.id_compra} className="transacao-item">
+                <div key={transacao.id || transacao.id_compra} className="transacao-item">
                   <div className="transacao-info">
-                    <h4>Compra Suspeita #{transacao.id_compra}</h4>
-                    <p><strong>Loja:</strong> {transacao.nome_loja || "Loja não identificada"}</p>
-                    <p><strong>Valor:</strong> R$ {transacao.preco_compra}</p>
-                    <p><strong>Data:</strong> {new Date(transacao.data_transacao).toLocaleDateString()}</p>
-                    <p><strong>Distância:</strong> {transacao.distancia_da_casa} km</p>
+                    <h4>Compra Suspeita #{transacao.idCompra || transacao.id_compra}</h4>
+                    <p><strong>Motivo:</strong> {transacao.tipoFraude || "Transação suspeita"}</p>
+                    <p><strong>Valor:</strong> R$ {formatarValor(transacao.valorCompra || transacao.preco_compra || 0)}</p>
+                    <p><strong>Data:</strong> {new Date(transacao.dataTransacao || transacao.data_transacao).toLocaleDateString()}</p>
+                    <p><strong>Condição:</strong> {transacao.condicao || "Análise de risco"}</p>
                   </div>
                   <div className="transacao-acoes">
                     <button 
-                      onClick={() => handleAprovar(transacao.id_compra)}
+                      onClick={() => aprovarCompra(transacao.idCompra || transacao.id_compra)}
                       className="btn-aprovar"
                     >
                       ✅ Aprovar
                     </button>
                     <button 
-                      onClick={() => handleContestar(transacao.id_compra)}
+                      onClick={() => contestarCompra(transacao.idCompra || transacao.id_compra)}
                       className="btn-contestar"
                     >
                       🚫 Contestar

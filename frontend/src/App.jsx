@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Componentes/Login/Login';
 import Cadastro from './Componentes/Cadastro/Cadastro';
 import Dashboard from './Componentes/Dashboard/Dashboard';
-import NovaCompra from './Componentes/NovaCompra/NovaCompra'; // ← CORRIGIDO
+import NovaCompra from './Componentes/NovaCompra/NovaCompra';
+import AdminDashboard from "./Componentes/AdminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/nova-compra" element={<NovaCompra />} />
         <Route path="/" element={<Login />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
