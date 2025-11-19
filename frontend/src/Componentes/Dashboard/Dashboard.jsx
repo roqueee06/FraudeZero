@@ -23,46 +23,58 @@ function Dashboard() {
   }, []);
 
   const buscarTransacoesSuspeitas = async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/suspeitas/usuario/${userId}`);
-      if (response.ok) {
-        const transacoes = await response.json();
-        setTransacoesSuspeitas(transacoes);
-      }
-    } catch (error) {
-      console.error("Erro ao buscar transações suspeitas:", error);
+  try {
+    const response = await fetch(`http://localhost:8080/api/suspeitas/usuario/${userId}`);
+    if (response.ok) {
+      const transacoes = await response.json();
+      setTransacoesSuspeitas(transacoes);
+    } else {
+      console.error("Erro ao buscar suspeitas:", response.status);
     }
-  };
+  } catch (error) {
+    console.error("Erro ao buscar transações suspeitas:", error);
+  }
+};
 
-  const handleAprovar = async (idCompra) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/suspeitas/aprovar/${idCompra}`, {
-        method: "POST"
-      });
-      if (response.ok) {
-        // Remove a transação da lista
-        setTransacoesSuspeitas(prev => prev.filter(t => t.id_compra !== idCompra));
-        alert("Transação aprovada com sucesso!");
-      }
-    } catch (error) {
-      console.error("Erro ao aprovar transação:", error);
+const handleAprovar = async (idCompra) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/suspeitas/aprovar/${idCompra}`, {
+      method: "POST"
+    });
+    
+    if (response.ok) {
+      // Remove a transação da lista localmente
+      setTransacoesSuspeitas(prev => prev.filter(t => t.idCompra !== idCompra));
+      alert("Transação aprovada com sucesso!");
+    } else {
+      const erro = await response.text();
+      alert(`Erro ao aprovar: ${erro}`);
     }
-  };
+  } catch (error) {
+    console.error("Erro ao aprovar transação:", error);
+    alert("Erro de conexão ao aprovar transação");
+  }
+};
 
-  const handleContestar = async (idCompra) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/suspeitas/contestar/${idCompra}`, {
-        method: "POST"
-      });
-      if (response.ok) {
-        // Remove a transação da lista
-        setTransacoesSuspeitas(prev => prev.filter(t => t.id_compra !== idCompra));
-        alert("Transação contestada! Nossa equipe irá analisar.");
-      }
-    } catch (error) {
-      console.error("Erro ao contestar transação:", error);
+const handleContestar = async (idCompra) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/suspeitas/contestar/${idCompra}`, {
+      method: "POST"
+    });
+    
+    if (response.ok) {
+      // Remove a transação da lista localmente
+      setTransacoesSuspeitas(prev => prev.filter(t => t.idCompra !== idCompra));
+      alert("Transação contestada! Nossa equipe irá analisar.");
+    } else {
+      const erro = await response.text();
+      alert(`Erro ao contestar: ${erro}`);
     }
-  };
+  } catch (error) {
+    console.error("Erro ao contestar transação:", error);
+    alert("Erro de conexão ao contestar transação");
+  }
+};
 
   const handleLogout = () => {
     localStorage.removeItem("usuario");
@@ -111,7 +123,7 @@ function Dashboard() {
               {transacoesSuspeitas.map((transacao) => (
                 <div key={transacao.id_compra} className="transacao-item">
                   <div className="transacao-info">
-                    <h4>Compra Suspeita #{transacao.id_compra}</h4>
+                    <h4>Compra Suspeita #{transacao.idCompra}</h4>
                     <p><strong>Loja:</strong> {transacao.nome_loja || "Loja não identificada"}</p>
                     <p><strong>Valor:</strong> R$ {transacao.preco_compra}</p>
                     <p><strong>Data:</strong> {new Date(transacao.data_transacao).toLocaleDateString()}</p>
@@ -119,16 +131,16 @@ function Dashboard() {
                   </div>
                   <div className="transacao-acoes">
                     <button 
-                      onClick={() => handleAprovar(transacao.id_compra)}
+                      onClick={() => handleAprovar(transacao.idCompra)}
                       className="btn-aprovar"
                     >
-                      ✅ Aprovar
+                      Aprovar
                     </button>
                     <button 
-                      onClick={() => handleContestar(transacao.id_compra)}
+                      onClick={() => handleContestar(transacao.idCompra)}
                       className="btn-contestar"
                     >
-                      🚫 Contestar
+                      Contestar
                     </button>
                   </div>
                 </div>

@@ -6,14 +6,11 @@ import com.bradesco.auth_system.repository.CompraRepository;
 import com.bradesco.auth_system.repository.SuspeitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CompraService {
-
+    
     @Autowired
     private CompraRepository compraRepository;
     
@@ -22,36 +19,30 @@ public class CompraService {
     
     @Autowired
     private DetectorFraudeService detectorFraudeService;
-
-    // MÉTODO CORRIGIDO - deve se chamar "salvar"
-    @Transactional
-    public Compra salvar(Compra compra) {
-        // Salva a compra primeiro para gerar o ID
+    
+    // MÉTODO CORRETO: salvarCompra
+    public Compra salvarCompra(Compra compra) {
         Compra compraSalva = compraRepository.save(compra);
         
-        // Detecta fraudes
+        // Detectar fraudes
         List<Suspeita> suspeitas = detectorFraudeService.detectarFraudes(compraSalva);
         
-        // Salva as suspeitas se houver
+        // Salvar suspeitas detectadas
         if (!suspeitas.isEmpty()) {
             suspeitaRepository.saveAll(suspeitas);
+            System.out.println(suspeitas.size() + " suspeita(s) detectada(s) para compra: " + compraSalva.getId());
         }
         
         return compraSalva;
     }
-
-    // MÉTODO PARA BUSCAR COMPRAS POR USUÁRIO
+    
+    // MÉTODO CORRETO: buscarComprasPorUsuario
     public List<Compra> buscarComprasPorUsuario(Long idUsuario) {
         return compraRepository.findByIdUsuario(idUsuario);
     }
-
-    // MÉTODO PARA BUSCAR TODAS AS COMPRAS
+    
+    // Se precisar de um método para buscar todas as compras (não apenas por usuário)
     public List<Compra> buscarTodasCompras() {
         return compraRepository.findAll();
-    }
-
-    // MÉTODO PARA BUSCAR COMPRA POR ID
-    public Optional<Compra> buscarPorId(Long id) {
-        return compraRepository.findById(id);
     }
 }

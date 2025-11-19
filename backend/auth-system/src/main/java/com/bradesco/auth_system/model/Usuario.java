@@ -21,6 +21,9 @@ public class Usuario {
     
     @Column(name = "senha", nullable = false)
     private String senha;
+
+    @Column(name = "role")
+    private String role = "USER";
     
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
