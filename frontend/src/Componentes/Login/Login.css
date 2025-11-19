@@ -1,0 +1,134 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('C:\Users\Guilh\Documents\FraudeZero\frontend\src\assets\image.png') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+}
+
+.login-page .container {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+}
+
+.login-page h1 {
+  text-align: center;
+  color: #cc0000;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.login-page .input-field {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.login-page .input-field input {
+  width: 100%;
+  padding: 10px 40px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  color: #000000; /* TEXTO PRETO */
+}
+
+.login-page .input-field input::placeholder {
+  color: #666; /* Placeholder cinza */
+}
+
+.login-page .input-field input:focus {
+  border-color: #cc0000;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.2);
+  color: #000000; /* TEXTO PRETO */
+}
+
+.login-page .input-field .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 16px;
+}
+
+.login-page .recall-forget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.login-page .recall-forget label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #000000; /* TEXTO PRETO */
+}
+
+.login-page .recall-forget a {
+  color: #cc0000;
+  text-decoration: none;
+}
+
+.login-page .recall-forget a:hover {
+  text-decoration: underline;
+}
+
+.login-page button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #cc0000, #8b0000);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-page button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(204, 0, 0, 0.4);
+}
+
+.login-page button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-page .signup-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-page .signup-link p {
+  color: #000000; /* TEXTO PRETO */
+}
+
+.login-page .signup-link a {
+  color: #cc0000;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-page .signup-link a:hover {
+  text-decoration: underline;
+}
