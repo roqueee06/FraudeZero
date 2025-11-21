@@ -1,16 +1,27 @@
-# React + Vite
+FRAUDE ZERO / PROJETO DUAL BRADESCO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O projeto consiste no desenvolvimento de uma solução tecnológica desenvolvida para um aplicativo móvel e um backend dedicado, projetado para identificar e sinalizar transações potencialmente fraudulentas realizadas com cartões bancários. A aplicação foi concebida como um sistema distribuído cliente-servidor, no qual o aplicativo Android funciona como camada de apresentação e consumo de dados, enquanto o backend, implementado em Spring Boot, concentra a lógica de negócios, incluindo autenticação, consulta de transações e análise de comportamento anômalo. O principal objetivo do sistema é fornecer ao usuário um mecanismo simples e eficiente de monitoramento, permitindo a identificação rápida de compras que não atendem ao seu padrão habitual.
 
-Currently, two official plugins are available:
+Sobre o nosso Projeto 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Embora trate de um protótipo acadêmico, a solução foi estruturada para manter a coerência com os cenários reais, adotando práticas comuns em sistemas financeiros, como separação de camadas, padronização de rotas e modularidade do código. O projeto demonstra como uma arquitetura distribuída pode ser aplicada para monitoramento de atividades bancárias, e como dados sintéticos podem ser usados ​​para testar algoritmos de detecção sem expor usuários reais. A documentação completa, incluindo arquitetura, requisitos, planejamento e testes, está disponível no repositório e serve como referência para a evolução futura da solução.
 
-## React Compiler
+FERRAMENTAS:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para o desenvolvimento e análise do projeto, utilizamos as seguintes ferramentas:
 
-## Expanding the ESLint configuration
+- JavaScipt
+- HTML
+- CSS
+- REACT
+- JAVA
+- MYSQL
+- SPRINGBOOT
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+INTEGRANTES:
+
+-  Lucas da Silva Barbosa
+-  Guilherme Veluziano Roque
+-  Kauã Marzariolli de Oliveira
+-  Gustavo Augusto Garcia da Silva
+-  Júlio César Soares da Silva 
